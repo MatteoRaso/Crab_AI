@@ -11,17 +11,20 @@ y = df["Age"]
 X = df.drop("Age", axis=1)
 
 model = tf.keras.models.Sequential()
-model.add(tf.keras.layers.Dense(20, activation="relu"))
-model.add(tf.keras.layers.Dense(20, activation="relu"))
-model.add(tf.keras.layers.Dense(20, activation="relu"))
-model.add(tf.keras.layers.Dense(20, activation="relu"))
-model.add(tf.keras.layers.Dense(20, activation="relu"))
-model.add(tf.keras.layers.Dense(20, activation="relu"))
+model.add(tf.keras.layers.Dense(80, activation="relu"))
+model.add(tf.keras.layers.Dense(80, activation="relu"))
+model.add(tf.keras.layers.Dense(80, activation="relu"))
+model.add(tf.keras.layers.Dense(80, activation="relu"))
+model.add(tf.keras.layers.Dense(80, activation="relu"))
+model.add(tf.keras.layers.Dense(80, activation="relu"))
+model.add(tf.keras.layers.Dense(80, activation="relu"))
+model.add(tf.keras.layers.Dense(80, activation="relu"))
+model.add(tf.keras.layers.Dense(80, activation="relu"))
 model.add(tf.keras.layers.Dense(1))
 
 model.compile(loss="MAE", optimizer="adam", metrics=["MAE"])
 
-history = model.fit(X, y, epochs=150, validation_split=0.2, batch_size=512)
+history = model.fit(X, y, epochs=180, validation_split=0.2, batch_size=256)
 
 df = pd.read_csv("test.csv")
 ID = df["id"]
