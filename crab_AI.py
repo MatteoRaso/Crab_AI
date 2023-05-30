@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv("train.csv")
 df = df.drop("id", axis=1)
-df = df.drop("Sex", axis=1)
-
+dict = {"M": 1, "I": 0, "F": -1}
+df["Sex"] = df["Sex"].apply(lambda x: dict[x])
 y = df["Age"]
 X = df.drop("Age", axis=1)
 
@@ -21,13 +21,12 @@ model.add(tf.keras.layers.Dense(1))
 
 model.compile(loss="MAE", optimizer="adam", metrics=["MAE"])
 
-history = model.fit(X, y, epochs=200, validation_split=0.2, batch_size=512)
+history = model.fit(X, y, epochs=150, validation_split=0.2, batch_size=512)
 
 df = pd.read_csv("test.csv")
 ID = df["id"]
 df = df.drop("id", axis=1)
-df = df.drop("Sex", axis=1)
-
+df["Sex"] = df["Sex"].apply(lambda x: dict[x])
 output = model.predict(df).flatten()
 submission = pd.DataFrame(data={"id": ID, "Age": output})
 submission.to_csv("submission.csv", index=False)
