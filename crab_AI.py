@@ -3,7 +3,7 @@ import pandas as pd
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("train.csv")
+df = pd.read_csv("data/train.csv")
 df = df.drop("id", axis=1)
 dict = {"M": 1, "I": 0, "F": -1}
 df["Sex"] = df["Sex"].apply(lambda x: dict[x])
@@ -24,9 +24,9 @@ model.add(tf.keras.layers.Dense(1))
 
 model.compile(loss="MAE", optimizer="adam", metrics=["MAE"])
 
-history = model.fit(X, y, epochs=180, validation_split=0.2, batch_size=256)
+history = model.fit(X, y, epochs=180, validation_split=0.01, batch_size=256)
 
-df = pd.read_csv("test.csv")
+df = pd.read_csv("data/test.csv")
 ID = df["id"]
 df = df.drop("id", axis=1)
 df["Sex"] = df["Sex"].apply(lambda x: dict[x])
