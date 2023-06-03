@@ -4,7 +4,11 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 
 df = pd.read_csv("data/train.csv")
+df = pd.concat([df, pd.read_csv("data/train_extended.csv")], sort=False)
 df = df.drop("id", axis=1)
+remove = df.index[df["Sex"] == "0.025"].tolist()
+df = df.drop(remove, axis=0)
+#print(df.index[df["Sex"] == "0.025"].tolist())
 dict = {"M": 1, "I": 0, "F": -1}
 df["Sex"] = df["Sex"].apply(lambda x: dict[x])
 y = df["Age"]
